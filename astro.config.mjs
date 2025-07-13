@@ -13,7 +13,7 @@ const providers = {
   vercel: vercel({
     edgeMiddleware: false,
   }),
-  cloudflare: cloudflare({
+  cloudflare_workers: cloudflare({
     imageService: 'compile',
     workerEntryPoint: {
       path: 'src/worker.ts',
@@ -42,7 +42,7 @@ export default defineConfig({
       // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
       // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
       alias: import.meta.env.PROD
-        && (adapterProvider === 'cloudflare' || process.env.DOCKER)
+        && (adapterProvider === 'cloudflare_workers' || process.env.DOCKER)
         && {
           'react-dom/server': 'react-dom/server.edge',
         },
