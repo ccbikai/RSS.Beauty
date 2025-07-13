@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - '@tsparticles/engine'
+  - esbuild
+  - sharp
+  - simple-git-hooks

@@ -1,4 +1,5 @@
-import { type Container, type ISourceOptions, MoveDirection } from '@tsparticles/engine'
+import type { Container, ISourceOptions } from '@tsparticles/engine'
+import { MoveDirection } from '@tsparticles/engine'
 import Particles, { initParticlesEngine } from '@tsparticles/react'
 import { loadSlim } from '@tsparticles/slim'
 import { useEffect, useMemo, useState } from 'react'

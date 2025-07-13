@@ -13,7 +13,12 @@ const providers = {
   vercel: vercel({
     edgeMiddleware: false,
   }),
-  cloudflare_pages: cloudflare(),
+  cloudflare: cloudflare({
+    imageService: 'compile',
+    workerEntryPoint: {
+      path: 'src/worker.ts',
+    },
+  }),
   netlify: netlify({
     edgeMiddleware: false,
   }),
@@ -23,6 +28,8 @@ const providers = {
 }
 
 const adapterProvider = process.env.SERVER_ADAPTER || provider
+
+console.info(`Using adapter: ${adapterProvider}`)
 
 export default defineConfig({
   adapter: providers[adapterProvider] || providers.node,
@@ -35,7 +42,7 @@ export default defineConfig({
       // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
       // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
       alias: import.meta.env.PROD
-        && (adapterProvider === 'cloudflare_pages' || process.env.DOCKER)
+        && (adapterProvider === 'cloudflare' || process.env.DOCKER)
         && {
           'react-dom/server': 'react-dom/server.edge',
         },
